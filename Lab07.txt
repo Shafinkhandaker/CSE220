@@ -1,0 +1,70 @@
+##problem 1
+class KeyIndex:
+    def __init__(self, array):
+        self.size = len(array)
+        self.maxsize = 0
+        for i in range(len(array)):
+            if abs(array[i]) > self.maxsize:
+                self.maxsize = abs(array[i])
+        self.index = [0 for i in range(2 +self.maxsize*2)]
+        for i in range(len(array)):
+            if (array[i] < 0):
+                self.index[-array[i] + self.maxsize + 1] += 1
+            else:
+                self.index[array[i]] += 1
+
+    def search(self, val):
+        if (val >= 0):
+            return self.index[val] > 0
+        return self.index[-val + self.maxsize + 1] > 0
+
+    def sort(self):
+        sorted_array = []
+        for i in range(len(self.index) - 1, self.maxsize, -1):
+            for j in range(self.index[i]):
+                sorted_array.append(self.maxsize- i + 1) 
+        for i in range(self.maxsize + 1):
+            for j in range(self.index[i]):
+                sorted_array.append(i)
+        return sorted_array
+
+array=[1,5,10,0,0,1,2,3,4,7,-1,-8,-2,-50]
+keyindex=KeyIndex(array)
+print(keyindex.search(1))
+print(keyindex.search(90))
+print(keyindex.search(2))
+print(keyindex.search(-3))
+sorted_array = keyindex.sort()
+print(sorted_array)
+
+##problem 2 
+class HashTable:
+    def __init__(self, a):
+        self.n = 9
+        self.capacity = 2*n
+        self.keys = [None for i in range(capacity)]
+        self.keys = [None for i in range(capacity)]
+        for e in a:
+            put(__hash(e), e)
+
+    def __hash(key):
+        c = 0
+        d = 0
+        for C in key:
+            if "0" <= C <= "9":
+                d += int(C)
+            else:
+                if C != 'A' and C != 'E' and C != 'I' and C != 'O' and C != 'U':
+                    c += int(C)
+            return (c * 24 + d)%9
+    def put(self, key, value):
+        p = key
+        while keys[p] != None:
+            if int(keys[p]) == key:
+                values[p]=value
+            p += 1
+
+    def get(self, key):
+        key = self.__hash(key)
+        return values[key] != None
+

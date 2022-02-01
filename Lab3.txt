@@ -1,0 +1,80 @@
+class Node:
+	def __init__(self,e):
+		self.e=e
+		self.next=self
+		self.prev=self
+class DoublyList:
+	def __init__(self,a):
+		if len(a)==0:
+			self.head=None 
+			return 
+		self.head=Node(a[0])
+		d_head=self.head
+		for i in range (1,len(a)):
+			c=Node(a[i])
+			d_head.next=c
+			c.prev=d_head
+			d_head=d_head.next
+		d_head.next=self.head
+		self.head.prev=d_head
+
+	def showList(self):
+		if self.head == None:
+			print("Empty List")
+			return
+		c = self.head
+		while True:
+			print(c.e, end= " ")
+			c= c.next
+			if c==self.head:
+				break	
+		print()
+
+	def insert(self, newElement):
+		if self.head==None:
+			self.head=newElement
+			return 
+		c=self.head
+		while c.next!=self.head:
+			if c.next==newElement:
+				return
+			c=c.next
+		if c.e==newElement.e:
+			return	
+		c.next=newElement
+		newElement.prev=c
+		newElement.next=self.head
+		self.head.prev=newElement 
+
+	def remove(self, index):
+		if self.head == None:
+			return
+		c = self.head
+		pointer = 0
+		while True:
+			if pointer == index:
+				c.prev.next = c.next
+				c.next.prev = c.prev
+				if pointer == 0:
+					self.head = c.next
+				return
+			c = c.next
+			if c == self.head:
+				return
+			pointer = pointer+1
+
+class Tester:
+	def __init__(self):
+		a=[101,120,25,91,87,1]
+		print("create a Dummy Headed Doubly Circular Linked list")
+		myList=DoublyList(a)
+		print(" Outputs the keys of the elements of the order list")
+		myList.showList()
+		print("Insert newElement at the tail of the list")
+		myList.insert(Node(3))
+		myList.showList()
+		print("removes the Node at the given index of the list")
+		myList.remove(0)
+		myList.showList()
+test=Tester()
+

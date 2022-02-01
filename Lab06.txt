@@ -1,0 +1,143 @@
+##problem 1
+def innerloopselectionSort(array,i,idx):
+    if i==len(array):
+        return idx
+    if array[i]<array[idx]:
+        idx=i
+    else:
+       i+=1
+    return innerloop(array,i,idx)
+
+def recursiveSelectionSort(array,i):
+    if i ==len(array):
+        return
+    idx=innerloop(array,i,i)
+    if array[idx]<array[i]:
+        array[i],array[idx]=array[idx],array[i]
+    else:
+        i+=1
+        recursiveSelectionSort(array,i)
+array=[1,6,5,2,3,9,10]
+print(array)
+i=0
+recursiveSelectionSort(array,i)
+print(array)
+
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+class DNode:
+    def __init__(self, val, prev=None, next=None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        
+def display_singly_list(head):
+    cur = head
+    while cur is not None:
+        print(cur.val, end=" ")
+        cur = cur.next
+    print()
+
+##PROBLEM 3
+def singly_list_bubble_sort(head):
+    i = head
+    while i.next is not None:
+        j = i.next
+        while j is not None:
+            if j.val < i.val:
+                i.val, j.val = j.val, i.val
+            j = j.next
+        i = i.next
+arr = [3,1,2,5,0,8,9,6,7]
+head = Node(0)
+dummy = head
+for item in arr:
+    dummy.next = Node(item)
+    dummy = dummy.next
+head = head.next
+display_singly_list(head)
+singly_list_bubble_sort(head)
+display_singly_list(head)
+##problem 4 
+def singly_list_selection_sort(head):
+    i = head
+    while i.next is not None:
+        cur = i
+        j = i.next
+        while j is not None:
+            if j.val < cur.val:
+                cur = j
+            j = j.next
+        if cur.val < i.val:
+            i.val, cur.val = cur.val, i.val
+        i = i.next        
+arr = [3,1,4,7,9,8,1,0,10]
+head = Node(0)
+dummy = head
+for item in arr:
+    dummy.next = Node(item)
+    dummy = dummy.next
+head = head.next
+display_singly_list(head)
+singly_list_selection_sort(head)
+display_singly_list(head)
+
+##problem 5
+def doublyInsertionSort(head):
+    pointer1 = head.next
+    while (pointer1 is not None):
+        current = pointer1.val
+        pointer2 = pointer1.prev
+        while (pointer2.prev is not None and pointer2.val > current):
+            pointer2.next.val = pointer2.val
+            pointer2 = pointer2.prev
+        pointer2.next.val = current
+        pointer1=pointer1.next
+arr = [3,1,4,7,9,8,1,0,10]
+head = DNode(0)
+dummy = head
+for item in range (0,len(arr)):
+    dummy.next = DNode(arr[item])
+    dummy.next.prev=dummy
+    dummy = dummy.next
+head = head.next
+display_singly_list(head)
+doublyInsertionSort(head)
+display_singly_list(head)
+
+##problem 6
+def recursivelyBinarySearch(array,i,j,value):
+    if i>j:
+        return -1
+    middle_point=(i+j)//2
+    if array[middle_point]==value:
+        return middle_point
+    if value>array[middle_point]:
+        middle_point+=1
+        return recursivelyBinarySearch(array,middle_point,j,value)
+    else:
+        middle_point-=1
+        return recursivelyBinarySearch(array,i,middle_point,value)
+array=[1,2,3,4,5,7,10]
+print(recursivelyBinarySearch(array,0,len(array)-1,7))
+
+##problem 7
+def findFibonacci(n,memoization):
+    if n==1:
+        return 0 
+    elif n==2:
+        return 1 
+    if memoization[n]>0:
+        return memoization[n]
+    else:
+        memoization[n]= findFibonacci(n-1,memoization)+findFibonacci(n-2,memoization)
+        return(memoization[n])
+n=13
+memoization=[]
+for i in range (0,n+1):
+    memoization.append(0)
+print(findFibonacci(n,memoization))

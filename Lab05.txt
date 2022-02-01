@@ -1,0 +1,136 @@
+#very easy
+def factorial(n):
+    if n==0:
+        return 1
+    elif n==1:
+        return 1 
+    else:
+        return n*factorial(n-1)
+print(factorial(1))
+
+def findFibonacci(n):
+    if n==1:
+        return 0 
+    elif n==2:
+        return 1 
+    else:
+        return findFibonacci(n-1)+findFibonacci(n-2)
+print(findFibonacci(10))
+
+
+def element_of_array(arr,indx):
+    if indx==len(arr):
+        return 
+    else:
+        print(arr[indx],end=" ")
+        indx=indx+1
+        element_of_array(arr,indx)
+
+arr=[1,2,3,3,4,56,7,8,9,12,2,12,12,12]
+indx=0
+element_of_array(arr,indx)
+
+def powerN(n,x):
+    if x == 0:
+        return 1
+    else:
+        return n* powerN(n, x-1)
+print(powerN(3,2))
+
+#Easy
+def tobinary(d):
+    if d==0:
+        return 0
+    else:
+        tobinary(d//2)
+        print(d%2,end=" ")
+tobinary(120)
+
+class Node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+
+def add(head):
+    if head==None:
+        return 0
+    else:
+        return head.val+add(head.next) 
+def reverse(head):
+    if head == None:
+        return 
+    else:
+        reverse(head.next)
+        print(head.val)
+
+head = Node(1)
+current = head
+for i in range(1, 5):
+    current.next = Node(i + 1)
+    current = current.next
+print(add(head))
+reverse(head)
+#medium
+def hocBuilder(height):
+    if height==1:
+        return 8
+    else:
+        return 5+hocBuilder(height-1)
+print(hocBuilder(1))
+
+#hard
+def row(number):
+    if number==0:
+        return 
+    else:
+        row(number-1)
+        print(number,end=' ')
+def add_spaces(number):
+    if number ==0:
+        return 
+    else:
+        add_spaces(number-1)
+        print('  ',end='')
+def patternWithoutSpaces(number):
+    if number==0:
+        return
+    else:
+        patternWithoutSpaces(number-1)
+        row(number)
+        print()
+def patternWithSpaces(number,spaces=0):
+    if number==0:
+        return
+    else:
+        patternWithSpaces(number-1,spaces+1)
+        add_spaces(spaces)
+        row(number)
+        print()
+patternWithoutSpaces(5)
+patternWithSpaces(5)
+
+##very hard
+
+class FinalQ: 
+
+    def calcProfit(self,investment):
+        if investment<=25000:
+            return 0
+        if investment<=100000:
+            return 4.5+self.calcProfit(investment-100)
+        else:
+            return 8+self.calcProfit(investment-100)
+    def print(self,array,idx): 
+        if(idx<len(array)): 
+            profit = self.calcProfit(array[idx])
+            print(f"{idx+1}. Investment: {array[idx]}. Profit: {profit}")
+            self.print(array, idx+1)
+
+    
+
+investments = [25000,100000,250000,350000]
+fq = FinalQ()
+fq.print(investments, 0)
+
+
+

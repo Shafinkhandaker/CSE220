@@ -1,0 +1,230 @@
+class Tester:
+	def __init__(self):
+		a=[101,120,25,91,87,1]
+		print("create a linked list from an array")
+		myList=MyList(a)
+		myList.showList()
+		print("Check empty or not:")
+		print(myList.isEmpty())
+		print("Remove all elements from a list")
+		myList.showList()
+		myList.clear()
+		myList.showList()
+		print("inserts newElement at the tail of the list")
+		myList=MyList(a)
+		myList.showList()
+		myList.insert1(Node(6))
+		myList.showList()
+		print("inserts newElement at the given index of the list")
+		myList=MyList(a)
+		myList.showList()
+		myList.insert(10,3)
+		myList.showList()
+		print("returns the deleted key value")
+		myList=MyList(a)
+		myList.showList()
+		print(myList.remove(1))
+		myList.showList()
+		print("List with even number")
+		myList=MyList(a)
+		myList.showList()
+		EvenNumber_List=myList.evenchecker()
+		EvenNumber_List.showList()
+		print("check the element is in the list or not")
+		myList=MyList(a)
+		myList.showList()
+		print(myList.elementchecker(7))
+		print("reverse the list")
+		myList=MyList(a)
+		myList.showList()
+		myList.reverse()
+		myList.showList()
+		print("Sort the list")
+		myList=MyList(a)
+		myList.showList()
+		myList.sort()
+		myList.showList()
+		print("the sum of the values in the list")
+		myList=MyList(a)
+		myList.showList()
+		myList.sum()
+		print("rotates the elements of the list k times")
+		myList=MyList(a)
+		myList.showList()
+		myList.rotate("left",2)
+		myList.showList()
+		myList=MyList(a)
+		myList.showList()
+		myList=MyList(a)
+		myList.rotate("right",2)
+		myList.showList()
+
+test=Tester()
+
+
+class Node:
+	def __init__(self,e):
+		self.e=e
+		self.next=None
+
+class MyList:
+	def __init__(self,a):
+		if len(a)==0:
+			self.head = None
+			return
+		self.head=Node(a[0])
+		current=self.head
+		for i in range (1,len(a)):
+			current.next=Node(a[i])
+			current=current.next
+
+	def showList(self):
+		if self.head == None:
+			print("Empty List")
+			return
+		current = self.head
+		while current is not None:
+			print(current.e, end= " ")
+			current= current.next
+		print()
+	def isEmpty(self):
+		if self.head == None:
+			return True
+		return False
+	def clear(self):
+		if self.isEmpty():
+			return
+		self.head=None
+	def insert1(self, newElement):
+		if self.isEmpty():
+			self.head=newElement
+		current=self.head
+		while current!=None:
+			if current.e==newElement.e:
+				return
+			if current.next==None:
+				current.next=newElement
+				return
+			current=current.next
+	def insert(self, newElement, index):
+		if self.isEmpty():
+			return
+		current_index=0
+		current=self.head
+		if index==0:
+			new_head=Node(newElement)
+			new_head.next=self.head
+			self.head=new_head
+			return
+		while current!=None:
+			if current.e==newElement:
+				return 
+			current=current.next
+
+		current=self.head
+		new_node=Node(newElement)
+		while current !=None :
+			if current_index == index-1:
+				new_node.next=current.next
+				current.next =new_node
+				return 
+			current_index +=1
+			current=current.next
+
+	def remove(self, deletekey):
+		if self.isEmpty():
+			return
+		if self.head.e==deletekey:
+			firstnode=self.head
+			self.head=self.head.next
+			return firstnode.e
+		current=self.head
+		while current.next !=None:
+			if current.next.e ==deletekey:
+				current.next=current.next.next
+				return deletekey
+			current=current.next
+		return 0	
+	def evenchecker(self):
+		new_list=[]
+		current=self.head
+		while current!=None:
+			if current.e % 2 ==0:
+				new_list.append(current.e)
+			current=current.next
+		result=MyList(new_list)
+		return result
+	def elementchecker(self,element):
+		current=self.head
+		while current !=None:
+			if current.e == element:
+				return True 
+			current=current.next
+		return False  
+	
+	def reverse(self):
+		current=self.head
+		prev=None
+		after=None 
+		while current!=None:
+			after=current.next 
+			current.next=prev
+			prev=current
+			current=after 
+		self.head=prev
+	def sort(self):
+		i= self.head
+		while i.next !=None:
+			j=i.next
+			while j!=None :
+				if j.e < i.e:
+					i.e,j.e=j.e,i.e
+				j=j.next
+			i=i.next
+	def sum(self):
+		current=self.head
+		Sum =0
+		while current!=None:
+			Sum+=current.e
+			current=current.next
+		print(Sum)
+
+	def rotate(self, d, k):
+		if d == "left":
+			for i in range(k):
+				t = self.head.e
+				current=self.head
+				while current != None:
+					if current.next == None:
+						current.e = t
+					else:
+						current.e = current.next.e
+					current = current.next
+
+		else:
+			t=0
+			while t<k:
+				p1 = self.head
+				p2 = None
+				length = 0
+				current = self.head
+				while current != None:
+					length += 1
+					current = current.next
+				for i in range(1, length):
+					p2 = p1
+					p1 = p1.next
+				p2.next = None
+				p1.next = self.head
+				self.head = p1
+				t +=1
+
+
+
+
+
+			
+	
+
+
+

@@ -1,0 +1,62 @@
+class Stack:
+    def __init__(self):
+        self.array = [0 for i in range(100)]
+        self.size = 0
+        self.highest_size = len(self.array)
+        self.ptr = 0
+
+    def push(self, element):
+        if self.ptr == self.highest_size:
+            print("Overflow")
+            return
+        self.array[self.ptr] = element
+        self.ptr += 1
+
+    def pop(self):
+        if not self.ptr:
+            print("Underflow")
+            return
+        self.array[self.ptr] = 0
+        self.ptr -= 1
+
+    def peek(self):
+        if self.isEmpty():
+            return
+        return self.array[self.ptr - 1]
+
+    def isEmpty(self):
+        return not self.ptr
+
+
+def balance_paren(a):
+    stack = Stack()
+    for i in a:
+        if i == "(" or i == "{" or i == "[":
+            stack.push(i)
+        if i == ")" or i == "}" or i == "]":
+            if stack.isEmpty():
+                return False
+            if (
+                stack.peek() == "("
+                and i == ")"
+                or stack.peek() == "{"
+                and i == "}"
+                or stack.peek() == "["
+                and i == "]"
+            ):
+                stack.pop()
+            else:
+                return False
+
+    if not stack.isEmpty():
+        return False
+    return True
+
+
+a = input()
+if balance_paren(a):
+    print("Expression is correct")
+else:
+    print("Expression is NOT correct")
+
+

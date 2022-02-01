@@ -1,0 +1,195 @@
+#problem1 
+def shiftLeft(Source,k):
+    for i in range (len(Source)):
+        if i < len(Source)-k:
+            Source[i]=Source[i+k]
+        else:
+            Source[i]=0
+            
+Source=[10,20,30,40,50,60]
+k=3
+shiftLeft(Source,k)
+print(Source)
+
+#problem 2 
+def rotateLeft(Source,k):
+    temp=Source[0:k]
+    p=0
+    for i in range (len(Source)):
+        if i < len(Source)-k:
+            Source[i]=Source[i+k]
+        else:
+            Source[i]=temp[p]
+            p=p+1
+Source=[10,20,30,40,50,60]
+k=3
+rotateLeft(Source,k)
+print(Source)
+
+# problem 3
+def remove(Source,Size,idx):
+    for i in range (idx,Size-1):
+        Source[i]=Source[i+1]
+    Source[Size-1]=0
+source=[10,20,30,40,50,0,0]
+remove(source,5,2)
+print(source)
+
+#problem4
+def removeAll(Source,Size,element):
+    while element in Source:
+        for i in range (0,Size):
+            if Source[i]==element:
+                for j in range (i,Size):
+                    Source[j]=Source[j+1]
+                Size=Size-1
+                break
+        for i in range (Size+1,len(Source)):
+            Source[i]=0
+    
+source=[10,2,30,2,50,2,2,60,0,0]
+removeAll(source,8,2)
+print(source)
+
+#problem 5
+def splitting_array(A):
+    
+    sum_1=0
+    for i in A:
+        sum_1 +=i
+    sum_2=sum_1/2
+    sum_3=0
+    for i in range (len(A)-1):
+        sum_3 +=A[i]
+        if sum_3==sum_2:
+            return True
+    return False
+print(splitting_array([1, 1, 1, 2, 1]))
+print(splitting_array([2, 1, 1, 2, 1]))
+print(splitting_array([10, 3, 10, 2, 1]))
+
+
+#problem 7
+def bunch_count(A):
+    temp=1
+    count=1
+    max_=0
+    for i in range (len(A)-1):
+        if A[i]==A[i+1]:
+            temp+=1
+            if temp > count:
+                max_=temp
+                count=max_
+            if count > temp:
+                max_=count
+                count=max_
+        else:
+            temp = 1
+    print(count)
+bunch_count([1, 2, 2, 3, 4, 4, 4])
+bunch_count([1,1,2, 2, 1, 1,1,1])
+
+#problem 8
+def similar(A):
+    dict1={}
+    for i in range (len(A)):
+        if A[i] not in dict1:
+            dict1[A[i]]=1
+        else:
+            dict1[A[i]] +=1
+            
+    for key in dict1:
+        for key2 in dict1:
+            if dict1[key]==dict1[key2] and key!=key2 and dict1[key]>1:
+                    return True 
+    return False
+
+print(similar([4,5,6,6,4,3,6,4]))
+print(similar([3,4,6,3,4,7,4,6,8,6,6]))
+
+
+# palindrome 
+def Palindrome_Checker(array,start,size):
+    array2=[]
+    for i in range (start,len(array)):
+        array2.append(array[i])
+    for i in range (0,start):
+        if array[i]!=0:
+            array2.append(array[i])
+    starting=0
+    ending=(len(array2)-1)
+    while starting<ending:
+        if array2[starting]!=array2[ending]:
+            return False
+        starting +=1
+        ending -=1
+    return True 
+print(Palindrome_Checker([20,10,0,0,0,10,20,30],5,5))
+print(Palindrome_Checker([10,20,0,0,0,10,20,30],5,5))
+
+
+# problem _Intersection
+def Common_number(Array1,Array2,Start1,Size1,Start2,Size2):
+    Array3=[]
+    Array4=[]
+    final_array=[]
+    for i in range (Start1,len(Array1)):
+        Array3.append(Array1[i])
+    for i in range (0,Start1):
+        if Array1[i]!=0:
+            Array3.append(Array1[i])
+    for j in range (Start2,len(Array2)):
+        Array4.append(Array2[j])
+    for j in range (0,Start2):
+        if Array2[j]!=0:
+           Array4.append(Array2[j])
+    for element in Array3:
+        if element in Array4:
+            final_array.append(element)
+    print(final_array)
+Array1=[40,50,0,0,0,10,20,30] 
+Start1=5
+Size1=5
+Array2= [10,20,5,0,0,0,0,0,5,40,15,25]
+Start2=8
+Size2=7
+
+Common_number(Array1,Array2,Start1,Size1,Start2,Size2)
+
+# problem 3(Circular Array)
+import random
+def rotate(array,size):
+    i=(size)-1
+    temp=array[i]
+    while(i>0):
+        array[i]=array[i-1]
+        i=i-1
+    array[i]=temp
+
+def remove(source,size,idx):
+    for i in range (idx,size-1):
+        source[i]=source[i+1]
+    source[size-1]=0
+
+def musicalchair():
+	array=['jamal','kamal','shafin','montu','sorol','mithu','didar']
+	n=7
+	while (n>1):
+		x= random.randint(0,3)
+		if x==1:
+			remove(array,n,n//2)
+			n=n-1
+			for i in range (n):
+				print(array[i],end=' ')
+			print()
+			
+		else:
+			rotate(array,n)
+	print('Winner:',array[0])
+
+musicalchair()
+
+
+
+
+
